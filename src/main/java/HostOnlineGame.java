@@ -1,19 +1,23 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 public class HostOnlineGame extends JFrame {
-    JButton sendButton = new JButton("Отправить");
+    JButton updateButton = new JButton("Обновить");
     JTextField chat = new JTextField();
     JTextField yesOrNo = new JTextField();
+    public String port = "1234";
+    public String ip = "192.168.50.160";
 
     public HostOnlineGame() {
         super("Данетки");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(500, 600);
+        setLocationRelativeTo(null);
         try {
             setContentPane(panel());
         } catch (URISyntaxException e) {
@@ -33,7 +37,7 @@ public class HostOnlineGame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String str = chat.getText();
                 try {
-                    FileWriter writer = new FileWriter("saved\\question.txt");
+                    FileWriter writer = new FileWriter("saves\\question.txt");
                     writer.write(str);
                     writer.flush();
                 } catch (IOException ioException) {
@@ -52,11 +56,37 @@ public class HostOnlineGame extends JFrame {
             }
         });
 
-        sendButton.setLocation(50, 300);
-        sendButton.setSize(200, 50);
-        sendButton.addActionListener(new ActionListener() {
+        updateButton.setLocation(50, 300);
+        updateButton.setSize(200, 50);
+        updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    URL url = new URL("http://" + ip + ":" + port + "/answer.txt");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                    BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+
+                    File f1 = new File("saves\\answer.txt");
+                    FileOutputStream fw = new FileOutputStream(f1);
+
+                    byte[] b = new byte[1024];
+                    int count = 0;
+
+                    while ((count = bis.read(b)) != -1)
+                        fw.write(b, 0, count);
+
+                    fw.close();
+                } catch (IOException ex) {
+                }
+                String answer;
+                try (FileReader fr = new FileReader("saves\\answer.txt")) {
+                    BufferedReader reader = new BufferedReader(fr);
+                    answer = reader.readLine();
+                    yesOrNo.setText(answer);
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                }
 
             }
         });
@@ -65,8 +95,8 @@ public class HostOnlineGame extends JFrame {
         menu.add(chat);
         yesOrNo.setActionCommand("Open");
         menu.add(yesOrNo);
-        sendButton.setActionCommand("Open");
-        menu.add(sendButton);
+        updateButton.setActionCommand("Open");
+        menu.add(updateButton);
 
         menu.setOpaque(true);
         return menu;

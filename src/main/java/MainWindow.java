@@ -11,6 +11,7 @@ public class MainWindow extends JFrame {
         super("Данетки");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(375, 200);
+        setLocationRelativeTo (null);
         setVisible(true);
         try {
             setContentPane(panelChoice());

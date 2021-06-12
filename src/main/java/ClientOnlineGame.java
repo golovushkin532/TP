@@ -12,6 +12,8 @@ public class ClientOnlineGame extends JFrame {
     JButton noButton = new JButton("Нет");
     JButton update = new JButton("Обновить");
     JTextField question = new JTextField();
+    public String port = "4321";
+    public String ip = "192.168.50.160";
 
     public ClientOnlineGame() {
         super("Данетки");
@@ -46,7 +48,7 @@ public class ClientOnlineGame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String str = "Да";
                 try {
-                    FileWriter writer = new FileWriter("saves\\answer.txt");
+                    FileWriter writer = new FileWriter("saved\\answer.txt");
                     writer.write(str);
                     writer.flush();
                 } catch (IOException ioException) {
@@ -62,7 +64,7 @@ public class ClientOnlineGame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String str = "Нет";
                 try {
-                    FileWriter writer = new FileWriter("saves\\answer.txt");
+                    FileWriter writer = new FileWriter("saved\\answer.txt");
                     writer.write(str);
                     writer.flush();
                 } catch (IOException ioException) {
@@ -75,7 +77,7 @@ public class ClientOnlineGame extends JFrame {
         update.setSize(100, 50);
         update.addActionListener(ActionEvent -> {
             try {
-                URL url = new URL("http://172.20.10.2:4321/saves\\question.txt");
+                URL url = new URL("http://" + ip + ":" + port + "/question.txt");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
                 BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
@@ -91,6 +93,14 @@ public class ClientOnlineGame extends JFrame {
 
                 fw.close();
             } catch (IOException ex) {
+            }
+            String q;
+            try (FileReader fr = new FileReader("saved\\question.txt")) {
+                BufferedReader reader = new BufferedReader(fr);
+                q = reader.readLine();
+                question.setText(q);
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
             }
         });
 

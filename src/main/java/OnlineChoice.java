@@ -14,6 +14,7 @@ public class OnlineChoice extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(375, 200);
         setVisible(true);
+        setLocationRelativeTo (null);
         try {
             setContentPane(panelChoice());
         } catch (URISyntaxException e) {
