@@ -11,12 +11,12 @@ public class HostOnlineGame extends JFrame {
     JTextField chat = new JTextField();
     JTextField yesOrNo = new JTextField();
     public String port = "1234";
-    public String ip = "192.168.50.160";
+    public String ip = "192.168.0.102";
 
     public HostOnlineGame() {
         super("Данетки");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(500, 600);
+        setSize(500, 300);
         setLocationRelativeTo(null);
         try {
             setContentPane(panel());
@@ -30,8 +30,8 @@ public class HostOnlineGame extends JFrame {
         JPanel menu = new JPanel();
         menu.setLayout(null);
 
-        chat.setLocation(50, 20);
-        chat.setSize(200, 100);
+        chat.setLocation(50, 50);
+        chat.setSize(400, 50);
         chat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,7 +47,7 @@ public class HostOnlineGame extends JFrame {
         });
 
         yesOrNo.setLocation(50, 120);
-        yesOrNo.setSize(100, 80);
+        yesOrNo.setSize(100, 50);
         yesOrNo.setEnabled(false);
         yesOrNo.addActionListener(new ActionListener() {
             @Override
@@ -56,8 +56,8 @@ public class HostOnlineGame extends JFrame {
             }
         });
 
-        updateButton.setLocation(50, 300);
-        updateButton.setSize(200, 50);
+        updateButton.setLocation(200, 120);
+        updateButton.setSize(100, 50);
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

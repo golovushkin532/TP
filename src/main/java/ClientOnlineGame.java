@@ -13,12 +13,13 @@ public class ClientOnlineGame extends JFrame {
     JButton update = new JButton("Обновить");
     JTextField question = new JTextField();
     public String port = "4321";
-    public String ip = "192.168.50.160";
+    public String ip = "192.168.0.102";
 
     public ClientOnlineGame() {
         super("Данетки");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(500, 600);
+        setSize(500, 300);
+        setLocationRelativeTo (null);
         try {
             setContentPane(panel());
         } catch (URISyntaxException e) {
@@ -41,7 +42,7 @@ public class ClientOnlineGame extends JFrame {
             }
         });
 
-        yesButton.setLocation(50, 300);
+        yesButton.setLocation(50, 130);
         yesButton.setSize(80, 50);
         yesButton.addActionListener(new ActionListener() {
             @Override
@@ -57,7 +58,7 @@ public class ClientOnlineGame extends JFrame {
             }
         });
 
-        noButton.setLocation(200, 300);
+        noButton.setLocation(370,130);
         noButton.setSize(80, 50);
         noButton.addActionListener(new ActionListener() {
             @Override
@@ -73,7 +74,7 @@ public class ClientOnlineGame extends JFrame {
             }
         });
 
-        update.setLocation(190, 400);
+        update.setLocation(190, 200);
         update.setSize(100, 50);
         update.addActionListener(ActionEvent -> {
             try {

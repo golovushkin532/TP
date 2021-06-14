@@ -25,7 +25,7 @@ public class MainWindow extends JFrame {
         JPanel menu = new JPanel();
         menu.setLayout(null);
 
-        button.setLocation(50, 50);
+        button.setLocation(75, 50);
         button.setSize(200, 50);
         button.setBackground(new Color(0x6DC911));
         button.addActionListener(new ActionListener() {
